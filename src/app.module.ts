@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ShortenerModule } from './shortener/shortener.module';
 import { DatabaseModule } from './database/database.module';
+import { databaseProviders } from './database/database.providers';
+import { UrlModule } from './url/url.module';
 
 @Module({
-  imports: [ShortenerModule, DatabaseModule],
+  imports: [DatabaseModule, UrlModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ...databaseProviders],
 })
 export class AppModule {}
