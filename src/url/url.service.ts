@@ -1,15 +1,15 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Url } from './url.entity';
+import { Urls } from '../database/entities/url.entity';
 
 @Injectable()
-export class UrlService {
+export class UrlService { 
   constructor(
-    @Inject('URL_REPOSITORY')
-    private urlRepository: Repository<Url>,
+    @InjectRepository(Urls)
+    private urlRepository: Repository<Urls>,
   ) {}
-
-  async findAll(): Promise<Url[]> {
+  async findAll(): Promise<Urls[]> {
     const urls = await this.urlRepository.find();
 
     return urls;

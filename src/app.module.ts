@@ -1,13 +1,17 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DatabaseModule } from './database/database.module';
-import { databaseProviders } from './database/database.providers';
 import { UrlModule } from './url/url.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Urls } from './database/entities/url.entity';
+import { UrlService } from './url/url.service';
 
 @Module({
-  imports: [DatabaseModule, UrlModule],
+  imports: [
+    UrlModule
+  ], 
   controllers: [AppController],
-  providers: [AppService, ...databaseProviders],
+  providers: [AppService],
 })
 export class AppModule {}
