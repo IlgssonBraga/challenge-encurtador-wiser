@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ShortenerModule } from './shortener/shortener.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [ShortenerModule],
+  imports: [ShortenerModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })
