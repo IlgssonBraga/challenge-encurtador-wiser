@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Urls } from '../../database/entities/url.entity';
 import { generateString } from '../../utils/generateRandomString';
 import { addMinutes, differenceInSeconds } from 'date-fns';
-import { ModelNotFoundExceptionFilter } from '../../exeption-filters/model-not-found.exception-filter';
 import { CreateUrlResponse } from '../../dtos/createUrl.dto';
 import { ExpiredUrlResponse } from '../../dtos/expiredUrl.dto';
 import { UrlRepository } from '../repositories/url.repository';
