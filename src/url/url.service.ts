@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Urls } from '../database/entities/url.entity';
 import { generateString } from '../utils/generateRandomString';
+import { addHours, addMinutes, differenceInSeconds } from 'date-fns';
 
 export interface CreateUrlResponse {
   newUrl: string;
@@ -40,9 +41,24 @@ export class UrlService {
     return response;
   }
 
-  async findByShortUrl(shortUrl: string): Promise<string> {
+  async findByShortUrl(shortUrl: string): Promise<any> {
     const newUrl = `${process.env.URL}/${shortUrl}`;
     const url = await this.urlRepository.findOneOrFail({ where: { newUrl } });
-    return url.url;
+    const now = addHours(new Date(), 3);
+    const datePlusTenMinutes = addMinutes(url.createdAt, 1);
+    if (differenceInSeconds(now, datePlusTenMinutes) < 0) {
+      return url.url;
+    }
+
+    return {
+      message:
+        'A url expirou, crie um novo link encurtado para poder continuar',
+      endpoints: [
+        {
+          addUrl: `${process.env.URL}/url`,
+          body: 'O body dessa requisição aceita um campo url',
+        },
+      ],
+    };
   }
 }

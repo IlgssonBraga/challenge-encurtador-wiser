@@ -13,7 +13,15 @@ export class UrlController {
     @Res() res: Response,
   ): Promise<any> {
     const url = await this.appService.findByShortUrl(shortUrl);
-    res.redirect(url);
+    
+    if (typeof url === 'string') {
+      res.redirect(url);
+      return;;
+    }
+
+    res.json(url);
+    
+    
   }
 
   @Post('/url')
