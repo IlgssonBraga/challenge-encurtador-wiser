@@ -19,7 +19,7 @@ export class UrlController {
       return;
     }
 
-    res.json(url);
+    res.status(401).json(url);
   }
 
   @Post('/encurtador')
