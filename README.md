@@ -21,6 +21,8 @@ As for the node application, how much the database is being managed by the docke
 ## Installation and Running the app
 
 ```bash
+$ chmod +x docker-entrypoint.sh
+
 $ docker-compose up
 ```
 
