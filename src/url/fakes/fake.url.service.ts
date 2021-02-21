@@ -37,6 +37,18 @@ export class FakeUrlService implements UrlRepository {
     return response;
   }
 
+  async removeTenMinutesToCreatedAt(shortUrl: string): Promise<Urls> {
+    const url = this.urls.find((url) => url.newUrl === shortUrl);
+
+    const index = this.urls.indexOf(url);
+
+    url.createdAt = addMinutes(url.createdAt, -10);
+
+    url[index] = url;
+
+    return url;
+  }
+
   async findByShortUrl(shortUrl: string): Promise<string | ExpiredUrlResponse> {
     const newUrl = `http://192.168.0.1:3000/${shortUrl}`;
 
@@ -48,7 +60,7 @@ export class FakeUrlService implements UrlRepository {
 
     const now = new Date();
 
-    const datePlusTenMinutes = addMinutes(shortLinkData.createdAt, 1);
+    const datePlusTenMinutes = addMinutes(shortLinkData.createdAt, 10);
 
     if (differenceInSeconds(datePlusTenMinutes, now) > 0) {
       return shortLinkData.url;

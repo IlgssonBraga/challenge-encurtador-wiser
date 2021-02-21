@@ -1,3 +1,4 @@
+import { differenceInMinutes } from 'date-fns';
 import { FakeUrlService } from './fakes/fake.url.service';
 
 describe('UrlService', () => {
@@ -36,26 +37,47 @@ describe('UrlService', () => {
     expect(newUrlResponse).toEqual('https://github.com/IlgssonBraga');
   });
 
-  // it('should be newUrl expires in 10 minutes', async () => {
-  //   const newUrlCreate = await service.createShortUrl(
-  //     'https://github.com/IlgssonBraga',
-  //   );
+  it('should be newUrl expires in 10 minutes', async () => {
+    const newUrlCreate = await service.createShortUrl(
+      'https://github.com/IlgssonBraga',
+    );
 
-  //   const shortenerUrl = newUrlCreate.newUrl.split('/')[3];
+    const shortenerUrl = newUrlCreate.newUrl.split('/')[3];
 
-  //   console.log('fora', new Date());
-  //   jest.useFakeTimers();
-  //   setInterval(() => {
-  //     setInterval(() => {
-  //       console.log('dentro', new Date());
-  //     }, 600000);
-  //   }, 600000);
+    await service.removeTenMinutesToCreatedAt(newUrlCreate.newUrl);
 
-  //   jest.advanceTimersByTime(600000);
-  //   const a = await service.findByShortUrl(shortenerUrl);
-  //   console.log('a', a);
+    const response = await service.findByShortUrl(shortenerUrl);
 
-  //   expect(1).toEqual(1);
-  // });
+    expect(response).toEqual({
+      message:
+        'A url expirou, crie um novo link encurtado para poder continuar',
+      expired: true,
+      endpoints: [
+        {
+          encurtaUrl: 'http://192.168.0.1:3000/encurtador',
+          body: 'O body dessa requisição aceita um campo url',
+        },
+      ],
+    });
+  });
+
+  it('should be possible remove 10 minutes from date (created only for tests)', async () => {
+    const newUrlCreate = await service.createShortUrl(
+      'https://github.com/IlgssonBraga',
+    );
+
+    const response = await service.removeTenMinutesToCreatedAt(newUrlCreate.newUrl)
+
+    expect(differenceInMinutes(new Date(), response.createdAt)).toEqual(10)
+    });
+
+    it('should be possible remove 10 minutes from date (created only for tests)', async () => {
+
+      // expect().toBeInstanceOf(Error)
+
+      await expect(
+        service.findByShortUrl('123')
+    ).rejects.toBeInstanceOf(Error);
+      });
 });
 
