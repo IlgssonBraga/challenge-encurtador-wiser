@@ -3,13 +3,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Urls } from '../database/entities/url.entity';
 import { generateString } from '../utils/generateRandomString';
-import { addHours, addMinutes, differenceInSeconds } from 'date-fns';
+import { addMinutes, differenceInSeconds } from 'date-fns';
 
 export interface CreateUrlResponse {
   newUrl: string;
   endpoints: {
     redirecionaUrl: string;
     metodo: string;
+  }[];
+}
+
+export interface ExpiredUrlResponse {
+  message: string;
+  endpoints: {
+    encurtaUrl: string;
+    body: string;
   }[];
 }
 @Injectable()
@@ -51,13 +59,17 @@ export class UrlService {
     return response;
   }
 
-  async findByShortUrl(shortUrl: string): Promise<any> {
+  async findByShortUrl(shortUrl: string): Promise<string | ExpiredUrlResponse> {
     const newUrl = `${process.env.URL}/${shortUrl}`;
-    const url = await this.urlRepository.findOneOrFail({ where: { newUrl } });
-    const now = addHours(new Date(), 3);
-    const datePlusTenMinutes = addMinutes(url.createdAt, 1);
-    if (differenceInSeconds(now, datePlusTenMinutes) < 0) {
-      return url.url;
+    const shortLinkData = await this.urlRepository.findOneOrFail({
+      where: { newUrl },
+    });
+    const now = new Date();
+
+    const datePlusTenMinutes = addMinutes(shortLinkData.createdAt, 10);
+
+    if (differenceInSeconds(datePlusTenMinutes, now) > 0) {
+      return shortLinkData.url;
     }
 
     return {
