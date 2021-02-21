@@ -13,23 +13,19 @@ export class UrlController {
     @Res() res: Response,
   ): Promise<any> {
     const url = await this.appService.findByShortUrl(shortUrl);
-    
+
     if (typeof url === 'string') {
       res.redirect(url);
-      return;;
+      return;
     }
 
     res.json(url);
-    
-    
   }
 
-  @Post('/url')
-  async addUrl(
-    @Body() body: {url: string}
-  ): Promise<CreateUrlResponse> {
-    const newUrl = await this.appService.createShortUrl(body.url)
+  @Post('/encurtador')
+  async addUrl(@Body() body: { url: string }): Promise<CreateUrlResponse> {
+    const newUrl = await this.appService.createShortUrl(body.url);
 
-    return newUrl
+    return newUrl;
   }
 } 

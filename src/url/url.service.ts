@@ -7,6 +7,10 @@ import { addHours, addMinutes, differenceInSeconds } from 'date-fns';
 
 export interface CreateUrlResponse {
   newUrl: string;
+  endpoints: {
+    redirecionaUrl: string;
+    metodo: string;
+  }[];
 }
 @Injectable()
 export class UrlService {
@@ -36,6 +40,12 @@ export class UrlService {
 
     const response = {
       newUrl,
+      endpoints: [
+        {
+          redirecionaUrl: `${process.env.URL}/${shortString}`,
+          metodo: 'GET',
+        },
+      ],
     };
 
     return response;
@@ -55,7 +65,7 @@ export class UrlService {
         'A url expirou, crie um novo link encurtado para poder continuar',
       endpoints: [
         {
-          addUrl: `${process.env.URL}/url`,
+          encurtaUrl: `${process.env.URL}/encurtador`,
           body: 'O body dessa requisição aceita um campo url',
         },
       ],
