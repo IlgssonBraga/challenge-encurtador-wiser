@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://wisereducacao.com/" target="blank"><img src=".github/cover.png" width="320" alt="Wiser Educação" /></a>
+  <a href="https://wisereducacao.com/" target="blank"><img src=".github/cover.png" width="560" alt="Wiser Educação" /></a>
 </p> 
 
   <p align="center">Technical and Creative challenge proposed by Wiser Educação during the selection process for a backend job with Node.js.</p>
