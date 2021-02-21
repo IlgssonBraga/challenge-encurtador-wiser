@@ -24,6 +24,11 @@ export class createUrlsTable1613855297491 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: 'expired',
+            type: 'boolean',
+            default: false,
+          },
+          {
             name: 'createdAt',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',

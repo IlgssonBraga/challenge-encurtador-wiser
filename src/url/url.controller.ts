@@ -1,10 +1,8 @@
 import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
-import {
-  CreateUrlResponse,
-  ExpiredUrlResponse,
-  UrlService,
-} from './url.service';
+import { UrlService } from './url.service';
 import { Response } from 'express';
+import { ExpiredUrlResponse } from '../dtos/expiredUrl.dto';
+import { CreateUrlResponse } from '../dtos/createUrl.dto';
 
 @Controller('')
 export class UrlController {

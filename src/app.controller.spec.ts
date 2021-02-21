@@ -3,20 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 describe('AppController', () => {
-  let appController: AppController;
-
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
-    }).compile();
-
-    appController = app.get<AppController>(AppController);
-  });
+  const appservice = new AppService();
+  const appController = new AppController(appservice);
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return a error message with status 400 when none params is passed.', () => {
+      const response = appController.getHello();
+      expect(response).toEqual({"message": "É necessário passar uma url encurtada para prosseguir!", "status": 400});
     });
   });
 });

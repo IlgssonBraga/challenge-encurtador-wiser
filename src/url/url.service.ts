@@ -1,41 +1,26 @@
-import { Injectable, Redirect } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Urls } from '../database/entities/url.entity';
 import { generateString } from '../utils/generateRandomString';
 import { addMinutes, differenceInSeconds } from 'date-fns';
+import { CreateUrlResponse } from '../dtos/createUrl.dto';
+import { ExpiredUrlResponse } from '../dtos/expiredUrl.dto';
+import { UrlRepository } from './repositories/url.repository';
 
-export interface CreateUrlResponse {
-  newUrl: string;
-  endpoints: {
-    redirecionaUrl: string;
-    metodo: string;
-  }[];
-}
 
-export interface ExpiredUrlResponse {
-  message: string;
-  endpoints: {
-    encurtaUrl: string;
-    body: string;
-  }[];
-}
 @Injectable()
-export class UrlService {
+export class UrlService implements UrlRepository {
   constructor(
     @InjectRepository(Urls)
     private urlRepository: Repository<Urls>,
   ) {}
-  async findAll(): Promise<Urls[]> {
-    const urls = await this.urlRepository.find();
-
-    return urls;
-  }
+  
 
   async createShortUrl(url: string): Promise<CreateUrlResponse> {
     const shortString = generateString();
 
-    const newUrl = `${process.env.URL}/${shortString}`;
+    const newUrl = `${process.env.URL}/${shortString}`; 
 
     const urlData = {
       url,
@@ -64,17 +49,23 @@ export class UrlService {
     const shortLinkData = await this.urlRepository.findOneOrFail({
       where: { newUrl },
     });
+
     const now = new Date();
 
-    const datePlusTenMinutes = addMinutes(shortLinkData.createdAt, 10);
+    const datePlusTenMinutes = addMinutes(shortLinkData.createdAt, 1);
 
     if (differenceInSeconds(datePlusTenMinutes, now) > 0) {
       return shortLinkData.url;
     }
 
+    shortLinkData.expired = true
+
+    await this.urlRepository.save(shortLinkData)
+
     return {
       message:
         'A url expirou, crie um novo link encurtado para poder continuar',
+        expired: shortLinkData.expired,
       endpoints: [
         {
           encurtaUrl: `${process.env.URL}/encurtador`,

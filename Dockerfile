@@ -4,14 +4,14 @@ WORKDIR /usr/app
 
 RUN npm i -g @nestjs/cli@7.4.1
 
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install
+# RUN npm install
 
 COPY . .
 
-RUN npm run typeorm migration:run
+# RUN npm run typeorm migration:run
 
 EXPOSE 3000
 
-CMD ["npm", "run" ,"start:dev"]
+CMD ["./docker-entrypoint.sh"]

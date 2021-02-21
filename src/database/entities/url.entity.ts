@@ -17,6 +17,9 @@ export class Urls {
   @Column()
   newUrl: string;
 
+  @Column()
+  expired: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 
