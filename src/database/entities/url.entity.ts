@@ -15,7 +15,7 @@ export class Urls {
   url: string;
 
   @Column()
-  shortUrl: string;
+  newUrl: string;
 
   @CreateDateColumn()
   createdAt: Date;

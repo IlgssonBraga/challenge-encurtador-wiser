@@ -19,7 +19,7 @@ export class createUrlsTable1613855297491 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'shortUrl',
+            name: 'newUrl',
             type: 'varchar',
             isNullable: false,
           },
