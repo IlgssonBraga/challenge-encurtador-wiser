@@ -34,10 +34,15 @@ $ npm run test
 $ npm run test:cov
 ```
 
+## API Documentation
+
+The API documentation made on Postman can be consulted on [Postman Documentation](https://documenter.getpostman.com/view/11767754/TWDXnwc5).
+
 ## Stay in touch
 
 - Author - [Ilgsson Braga](https://www.linkedin.com/in/ilgsson-braga-de-morais-silva-62b213199/)
 - Instagram - [@ilgssonbraga](https://www.instagram.com/ilgsson_braga/?hl=pt-br)
+- Github - [IlgssonBraga](https://github.com/IlgssonBraga)
 
 ## License
 
