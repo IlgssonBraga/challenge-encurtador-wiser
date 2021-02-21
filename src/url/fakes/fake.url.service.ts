@@ -12,8 +12,8 @@ export class FakeUrlService implements UrlRepository {
 
   async createShortUrl(url: string): Promise<CreateUrlResponse> {
     const shortString = generateString();
-
-    const newUrl = `http://192.168.0.1:3000/${shortString}`;
+    const defaultUrl = 'http://192.168.0.1:3000';
+    const newUrl = `${defaultUrl}/${shortString}`;
     const urlData = new Urls();
 
     urlData.url = url;
@@ -28,7 +28,7 @@ export class FakeUrlService implements UrlRepository {
       newUrl,
       endpoints: [
         {
-          redirecionaUrl: `http://192.168.0.1:3000/${shortString}`,
+          redirecionaUrl: `${defaultUrl}/${shortString}`,
           metodo: 'GET',
         },
       ],
@@ -50,7 +50,8 @@ export class FakeUrlService implements UrlRepository {
   }
 
   async findByShortUrl(shortUrl: string): Promise<string | ExpiredUrlResponse> {
-    const newUrl = `http://192.168.0.1:3000/${shortUrl}`;
+    const defaultUrl = 'http://192.168.0.1:3000';
+    const newUrl = `${defaultUrl}/${shortUrl}`;
 
     const shortLinkData = this.urls.find((url) => url.newUrl === newUrl);
 
@@ -72,7 +73,7 @@ export class FakeUrlService implements UrlRepository {
       expired: true,
       endpoints: [
         {
-          encurtaUrl: 'http://192.168.0.1:3000/encurtador',
+          encurtaUrl: `${defaultUrl}/encurtador`,
           body: 'O body dessa requisição aceita um campo url',
         },
       ],
