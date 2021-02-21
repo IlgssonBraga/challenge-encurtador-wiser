@@ -2,17 +2,16 @@ version: "3"
 
 services:
   db:
-    build: db
+    build: .docker/postgres
     container_name: wiser-pg
     ports:
       - 5432:5432
     volumes: 
-      - /db:/var/lib/postgresql/data:z
+      - .docker/postgres/db:/var/lib/postgresql/data:z
     restart: always
     tty: true
-    environment:
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=wiser
+    env_file:
+      - postgres.env
 
   app:
     build: .
