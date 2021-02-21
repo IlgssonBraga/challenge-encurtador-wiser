@@ -36,7 +36,7 @@ $ npm run test:cov
 
 ## Stay in touch
 
-- Author - [Ilgsson Braga](https://kamilmysliwiec.com)
+- Author - [Ilgsson Braga](https://www.linkedin.com/in/ilgsson-braga-de-morais-silva-62b213199/)
 - Instagram - [@ilgssonbraga](https://www.instagram.com/ilgsson_braga/?hl=pt-br)
 
 ## License
