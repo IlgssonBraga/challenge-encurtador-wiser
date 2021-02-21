@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  db:
+    build: db
+    container_name: wiser-pg
+    ports:
+      - 5432:5432
+    volumes: 
+      - /db:/var/lib/postgresql/data:z
+    restart: always
+    tty: true
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=wiser
+
+  app:
+    build: .
+    container_name: wiser-node
+    network_mode: "host"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/app:z
+    depends_on:
+      - db
