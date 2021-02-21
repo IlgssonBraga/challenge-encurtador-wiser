@@ -1,0 +1,42 @@
+{
+  "info": {
+    "_postman_id": "b590ff73-9a2a-4381-a1b8-f9420797285c",
+    "name": "Wiser-encurtador-backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Empty request",
+      "id": "5e31f59c-e6d4-4dae-abd7-5dcaba295ecf",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": null,
+        "description": "This endpoints shows the empty request response"
+      },
+      "response": []
+    },
+    {
+      "name": "Generate new URL",
+      "id": "acc04441-e626-4a4a-93c0-3ca48669a6ed",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": null,
+        "description": "Endpoint to generate a new short URL"
+      },
+      "response": []
+    },
+    {
+      "name": "Redirect URL",
+      "id": "c6d719a1-fc04-4fd4-b9e5-9df0fdd76056",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": null,
+        "description": "Endpoint to redirect a short URL"
+      },
+      "response": []
+    }
+  ]
+}
