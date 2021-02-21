@@ -10,8 +10,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run typeorm migration:run
+
 EXPOSE 3000
 
 CMD ["npm", "run" ,"start:dev"]
-
-# CMD [ "./docker-entrypoint.sh" ] 

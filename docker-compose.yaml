@@ -10,6 +10,8 @@ services:
       - .docker/postgres/db:/var/lib/postgresql/data:z
       - /usr/app/node_modules
     restart: always
+    networks:
+    - Wisernet
     tty: true
     env_file:
       - postgres.env
@@ -17,10 +19,20 @@ services:
   app:
     build: .
     container_name: wiser-node
-    network_mode: "host"
+    networks:
+    - Wisernet
     ports:
       - 3000:3000
     volumes:
       - .:/usr/app:z
     depends_on:
       - db
+    
+networks:
+  Wisernet:
+      driver: bridge
+      ipam:
+          driver: default
+          config:
+              - subnet: "192.168.0.0/24"
+                gateway: "192.168.0.1"
