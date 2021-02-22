@@ -51,7 +51,7 @@ export class UrlService implements UrlRepository {
 
     const now = new Date();
 
-    const datePlusTenMinutes = addMinutes(shortLinkData.createdAt, 1);
+    const datePlusTenMinutes = addMinutes(shortLinkData.createdAt, 10);
 
     if (differenceInSeconds(datePlusTenMinutes, now) > 0) {
       return shortLinkData.url;
