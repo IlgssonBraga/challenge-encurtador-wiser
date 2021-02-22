@@ -21,8 +21,6 @@ As for the node application, how much the database is being managed by the docke
 ## Installation and Running the app
 
 ```bash
-$ chmod +x docker-entrypoint.sh
-
 $ docker-compose up
 ```
 
@@ -45,6 +43,10 @@ The API documentation made on Postman can be consulted on [Postman Documentation
 - Author - [Ilgsson Braga](https://www.linkedin.com/in/ilgsson-braga-de-morais-silva-62b213199/)
 - Instagram - [@ilgssonbraga](https://www.instagram.com/ilgsson_braga/?hl=pt-br)
 - Github - [IlgssonBraga](https://github.com/IlgssonBraga)
+
+## Deploy
+
+The project was deployed on [Heroku](https://heroku.com). You can access [here](https://wiser-encurtador-backend.herokuapp.com/).
 
 ## License
 

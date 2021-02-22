@@ -16,6 +16,7 @@ import { UrlService } from './url.service';
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
       entities: [Urls],
+      url: process.env.TYPEORM_URL,
     }),
     TypeOrmModule.forFeature([Urls]),
   ],

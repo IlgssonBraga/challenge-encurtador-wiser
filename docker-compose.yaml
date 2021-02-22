@@ -10,17 +10,16 @@ services:
       - .docker/postgres/db:/var/lib/postgresql/data:z
       - /usr/app/node_modules
     restart: always
-    networks:
-    - Wisernet
     tty: true
-    env_file:
-      - postgres.env
+    environment:
+      - POSTGRES_PASSWORD:${TYPEORM_DATABASE}
+      - POSTGRES_DB:${TYPEORM_PASSWORD}
 
   app:
     build: .
+    command: sh -c "npm run typeorm migration:run && npm run start:dev"
     container_name: wiser-node
-    networks:
-    - Wisernet
+    network_mode: host
     ports:
       - 3000:3000
     volumes:
@@ -28,11 +27,3 @@ services:
     depends_on:
       - db
     
-networks:
-  Wisernet:
-      driver: bridge
-      ipam:
-          driver: default
-          config:
-              - subnet: "192.168.0.0/24"
-                gateway: "192.168.0.1"

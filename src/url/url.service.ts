@@ -8,7 +8,6 @@ import { CreateUrlResponse } from '../dtos/createUrl.dto';
 import { ExpiredUrlResponse } from '../dtos/expiredUrl.dto';
 import { UrlRepository } from './repositories/url.repository';
 
-
 @Injectable()
 export class UrlService implements UrlRepository {
   constructor(
@@ -65,7 +64,7 @@ export class UrlService implements UrlRepository {
     return {
       message:
         'A url expirou, crie um novo link encurtado para poder continuar',
-        expired: shortLinkData.expired,
+      expired: shortLinkData.expired,
       endpoints: [
         {
           encurtaUrl: `${process.env.URL}/encurtador`,
